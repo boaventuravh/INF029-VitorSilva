@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 #define QTDE 5
 #define QTDE_CHAR 256
 
@@ -10,6 +11,7 @@ int main() {
   {
     printf("\nDigite o nome da %dª pessoa(maximo de %d caracteres): ", i+1, QTDE_CHAR);
     fgets(nomes[i], QTDE_CHAR, stdin);
+    nomes[i][strlen(nomes[i]) - 1] = '\0';
     printf("\nDigite a idade da %dª pessoa : ", i+1);
     scanf("%d", &idades[i]);
     getchar();   // esse getchar evita que o "\n" seja lido pelo fgets do próximo ciclo no loop
@@ -25,7 +27,7 @@ int main() {
   for(i=0;i<QTDE;i++)
   if (idades[i] > media)
   {
-    printf ("\n%s com %d anos", nomes[i], idades[i]);
+    printf ("\n%s, com %d anos", nomes[i], idades[i]);
     super += 1;
   }
 
