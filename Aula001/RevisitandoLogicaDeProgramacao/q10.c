@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <string.h>
 #define MAX_CHAR 256
-#define QTDE_PESSOAS 2
+#define QTDE_PESSOAS 10
 
 int main(){
 
