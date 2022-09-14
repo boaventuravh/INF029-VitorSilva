@@ -44,7 +44,7 @@ int validaCpf(char cpf[])
     }
     digiVeri%=11;
     if (digiVeri == 1 || digiVeri == 0)
-        digiVeri == 0;
+        digiVeri = 0;
     else
         digiVeri = 11 - digiVeri;
     
