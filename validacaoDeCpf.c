@@ -23,7 +23,7 @@ int main()
 
     return 0;
 }
-// tem algum bug, preciso corrigir. Alguns CPF's válidos retornam valor inválido no programa
+
 int validaCpf(char cpf[])
 {
     int cpfNum[12];
@@ -59,10 +59,9 @@ int validaCpf(char cpf[])
         }
         digiVeri%=11;
         if (digiVeri == 1 || digiVeri == 0)
-            digiVeri == 0;
+            digiVeri = 0;
         else
             digiVeri = 11 - digiVeri;
-        
         if (digiVeri != cpfNum[10])
             return -1;
         else
