@@ -24,48 +24,82 @@ typedef struct Disciplinas {
 	int quant;
 } Disciplinas;
 
-Disciplinas cadastroDisciplina(Disciplinas cadastro/*[]*/);
+Disciplinas cadastroDisciplina(Disciplinas cadastro[]);
 
 int main()
 {
-    Disciplinas disciCadastradas/*[10]*/; // depois podemos alterar essa quantidade
-    disciCadastradas = cadastroDisciplina(disciCadastradas/*[]*/);
-    printf("\nNome: %s", disciCadastradas.nome);
-    printf("\nCodigo: %s", disciCadastradas.codigo);
-    printf("\nSemestre: %s", disciCadastradas.semestre);
-    printf("\nProfessor: %s", disciCadastradas.professor);
+    int i;
+    Disciplinas disciCadastradas[10]; // depois PRECISAMOS alterar essa quantidade de disciplinas
+    cadastroDisciplina(disciCadastradas);
+    
+    for(i=0;i<disciCadastradas[0].quant;i++)
+    {
+        printf("-----------------------------------------");
+        printf("\nNome: %s", disciCadastradas[i].nome);
+        printf("\nCodigo: %s", disciCadastradas[i].codigo);
+        printf("\nSemestre: %s", disciCadastradas[i].semestre);
+        printf("\nProfessor: %s", disciCadastradas[i].professor);
+        printf("\n\n");
+    }
+
     return 0;
 }
 
-Disciplinas cadastroDisciplina(Disciplinas cadastro/*[]*/)
+Disciplinas cadastroDisciplina(Disciplinas cadastro[])
 {
+    int op = 1;
+    int validadeNome;
+    int validadeCodigo;
+    int validadeSemestre;
+    int validadeProfessor;
+    int i=0;
     
-    fflush(stdin);
-
-    printf("\nNome: ");
-    fgets(cadastro.nome, 101, stdin);
-    cadastro.nome[strcspn(cadastro.nome, "\n")] = 0;
+    while(op == 1)
+    {
+        fflush(stdin);
     
-    //validação do nome
+        printf("\nNome: ");
+        fgets(cadastro[i].nome, 101, stdin);
+        cadastro[i].nome[strcspn(cadastro[i].nome, "\n")] = 0;
+        
+        //validação do nome
+        
+        printf("\nCodigo(3 letras maiusculas e 3 numeros): ");
+        fgets(cadastro[i].codigo, 8, stdin);
+        cadastro[i].codigo[strcspn(cadastro[i].codigo, "\n")] = 0;
+        
+        //validação do código
+        
+        printf("\nSemestre (formato ANO.SEMESTRE <AAAA.S>): ");
+        fgets(cadastro[i].semestre, 8, stdin);
+        cadastro[i].semestre[strcspn(cadastro[i].semestre, "\n")] = 0;
+        
+        //validação do semestre
+        
+        printf("\nProfessor: ");
+        fgets(cadastro[i].professor, 101, stdin);
+        cadastro[i].professor[strcspn(cadastro[i].professor, "\n")] = 0;
+        
+        //validação do professor
+        printf("\nDeseja realizar outro cadastro?\n[1] Sim\n[0] Nao\n");
+	    scanf("%d", &op);
+	    getchar();
+	
+	    while (op != 1 && op != 0) 
+	    {
+        	printf("\nOpcao invalida! Tente novamente: ");
+        	scanf("%d", &op);
+        	getchar();
+	    }
+	    
+	    if (op == 1) 
+	    {
+	    	i++;
+	    }
+    }
     
-    printf("\nCodigo(3 letras maiusculas e 3 numeros): ");
-    fgets(cadastro.codigo, 8, stdin);
-    cadastro.codigo[strcspn(cadastro.codigo, "\n")] = 0;
     
-    //validação do código
+    i++;
+  	cadastro[0].quant = i;
     
-    printf("\nSemestre (formato ANO.SEMESTRE <AAAA.S>): ");
-    fgets(cadastro.semestre, 8, stdin);
-    cadastro.semestre[strcspn(cadastro.semestre, "\n")] = 0;
-    
-    //validação do semestre
-    
-    printf("\nProfessor: ");
-    fgets(cadastro.professor, 101, stdin);
-    cadastro.professor[strcspn(cadastro.professor, "\n")] = 0;
-    
-    //validação do professor
-    
-    return cadastro;
 }
-
