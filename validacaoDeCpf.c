@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 
+
 int validaCpf(char cpf[]);
 
 int main()
