@@ -121,7 +121,7 @@ int valCpf(char valiCpf[])
 
   printf("\nVerificador: %d", digVeri);
   
-  if(digVeri != valiCpf[9])
+  if(digVeri != valiCpf[9]-48)
     return -1;
   else
   {
