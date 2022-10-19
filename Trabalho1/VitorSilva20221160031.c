@@ -18,12 +18,14 @@
 
 //  Copyright © 2016 Renato Novais. All rights reserved.
 // Última atualização: 07/05/2021 - 19/08/2016
+// Compilação: gcc apoio.c VitorSilva20221160031.c corretor.c -o test
 
 // #################################################
 
 #include <stdio.h>
 #include "VitorSilva20221160031.h"
 #include <stdlib.h>
+#include <math.h>
 #include "apoio.h"
 
 
@@ -109,7 +111,6 @@ int q1(char data[])
         return 0;
     else
         return validarData(brokenDate.iDia , brokenDate.iMes , brokenDate.iAno);
-    
 }
 
 
@@ -127,25 +128,47 @@ int q1(char data[])
     3 -> datafinal inválida
     4 -> datainicial > datafinal
     Caso o cálculo esteja correto, os atributos qtdDias, qtdMeses e qtdAnos devem ser preenchidos com os valores correspondentes.
-
+*/
  DiasMesesAnos q2(char datainicial[], char datafinal[])
 {
 
     //calcule os dados e armazene nas três variáveis a seguir
     DiasMesesAnos dma;
-
+    
+    DataQuebrada dataQuebrInicial, dataQuebrFinal;
+    
     if (q1(datainicial) == 0){
       dma.retorno = 2;
       return dma;
     }
+    
 	else if (q1(datafinal) == 0){
       dma.retorno = 3;
       return dma;
     }
+    
 	else{
-      //verifique se a data final não é menor que a data inicial
+        dataQuebrInicial = quebraData(datainicial);
+        dataQuebrFinal = quebraData(datafinal);
+
+        if (dataQuebrFinal.iAno < dataQuebrInicial.iAno){
+            dma.retorno = 4;
+            return dma;
+        }
+
+        else if (dataQuebrFinal.iAno == dataQuebrInicial.iAno && dataQuebrFinal.iMes < dataQuebrInicial.iMes){
+            dma.retorno = 4;
+            return dma;
+        }
+
+        else if (dataQuebrFinal.iAno == dataQuebrInicial.iAno && dataQuebrFinal.iMes == dataQuebrInicial.iMes && dataQuebrFinal.iDia < dataQuebrInicial.iDia){
+            dma.retorno = 4;
+            return dma;
+        }
+        
       
-      //calcule a distancia entre as datas
+        //calcule a distancia entre as datas
+        
 
 
       //se tudo der certo
@@ -155,7 +178,7 @@ int q1(char data[])
     }
     
 }
-*/
+
 
 /*
  Q3 = encontrar caracter em texto
@@ -166,13 +189,26 @@ int q1(char data[])
         Se isCaseSensitive != 1, a pesquisa não deve  considerar diferenças entre maiúsculos e minúsculos.
  @saida
     Um número n >= 0.
-
+*/
  int q3(char *texto, char c, int isCaseSensitive)
 {
-    int qtdOcorrencias = -1;
+    int qtdOcorrencias = 0;
+    switch(isCaseSensitive){
+        case 1:
+            for(int i = 0; texto[i] != '\0';i++){
+                if (texto[i] == c)
+                    qtdOcorrencias++;
+            }
+            break;
+        default:
+            for(int i = 0; texto[i] != '\0';i++){
+                if (texto[i] == c || texto[i]+32 == c || texto[i] - 32 == c)
+                    qtdOcorrencias++;
+            }
+    }
 
     return qtdOcorrencias;
-}*/
+}
 
 /*
  Q4 = encontrar palavra em texto
