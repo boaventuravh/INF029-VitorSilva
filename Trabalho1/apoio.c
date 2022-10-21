@@ -3,8 +3,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include <math.h>
-
+#include "apoio.h"
 #include "VitorSilva20221160031.h"
 
 int validarData(int dia, int mes, int ano){
@@ -73,15 +72,27 @@ int inverterInteiro(int num){
     while(quociente>0){
         restos[contador] = quociente % 10;
         quociente /= 10;
-        printf("\nContador: %d", contador);
         contador++;
     }
+    restos[contador] = quociente;
     
     for(int count = contador; count > 0; count--)
     {
-        invertido += restos[contador - count]*pow(10,count);
+        invertido += restos[contador - count]*potenciacao(10,count-1);
     }
-    
+    printf("\nInvertido: %d\n", invertido);
     return invertido;
     
+}
+
+int potenciacao(int base, int expoente){
+    
+    int potencia;
+    potencia = base;
+    
+    for (int i = 1; i < expoente; i++){
+        potencia *= base;
+    }
+    
+    return potencia;
 }

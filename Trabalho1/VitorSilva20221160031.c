@@ -25,7 +25,6 @@
 #include <stdio.h>
 #include "VitorSilva20221160031.h"
 #include <stdlib.h>
-#include <math.h>
 #include "apoio.h"
 
 
@@ -240,13 +239,14 @@ int q4(char *strTexto, char *strBusca, int posicoes[30])
     uma int num.
  @saida
     Número invertido
-
+*/
  int q5(int num)
 {
+    inverterInteiro(num);
 
     return num;
 }
-*/
+
 
 /*
  Q6 = ocorrência de um número em outro
