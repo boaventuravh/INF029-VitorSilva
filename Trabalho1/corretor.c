@@ -6,7 +6,7 @@
 void testQ1();
 void testQ2();
 void testQ3();
-/*void testQ4();*/
+void testQ4();
 void testQ5();
 /*void testQ6();
 */
@@ -19,8 +19,8 @@ int main(){
    // testQ2(); // 35 testes
     printf("\nq3\n");
     testQ3(); // 13 testes
-    /*printf("\nq4\n");
-    testQ4(); // 22 testes*/
+    printf("\nq4\n");
+    testQ4(); // 22 testes
     printf("\nq5\n");
     testQ5(); // 10 testes
    /* printf("\nq6\n");
@@ -210,7 +210,7 @@ void testQ3(){
 
     
 }
-/*
+ 
 void testQ4(){
     char strTexto[250];
     char strBusca[50];
@@ -264,7 +264,7 @@ void testQ4(){
     printf("%d\n",posicoes[7]==27);
 
 }
-*/
+
 
 void testQ5(){
     printf("%d\n",q5(345) == 543);

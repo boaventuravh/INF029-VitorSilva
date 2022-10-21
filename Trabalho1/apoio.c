@@ -60,7 +60,8 @@ int verificarBissexto(int ano){
         return bissexto;
     }
 }
-//a função abaixo é para a questão 5. Ainda está incompleta
+
+//a função abaixo é para a questão 5.
 int inverterInteiro(int num){
     int restos[200];
     int quociente, contador, invertido;
@@ -68,19 +69,22 @@ int inverterInteiro(int num){
     contador = 0;
     invertido = 0;
     
-    
+    //abaixo, o número é decomposto em unidades,
+    //cada uma armazenada em uma posição de um arry
     while(quociente>0){
         restos[contador] = quociente % 10;
         quociente /= 10;
         contador++;
     }
-    restos[contador] = quociente;
+    
     
     for(int count = contador; count > 0; count--)
     {
-        invertido += restos[contador - count]*potenciacao(10,count-1);
+        invertido += restos[contador - count]*potenciacao(10,count);
     }
-    printf("\nInvertido: %d\n", invertido);
+    
+    invertido /= 10;
+    
     return invertido;
     
 }

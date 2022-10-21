@@ -25,6 +25,7 @@
 #include <stdio.h>
 #include "VitorSilva20221160031.h"
 #include <stdlib.h>
+#include <string.h>
 #include "apoio.h"
 
 
@@ -222,14 +223,34 @@ int q1(char data[])
         posicoes[1] = 16;
         Observe que o índice da posição no texto deve começar ser contado a partir de 1.
         O retorno da função, n, nesse caso seria 1;
-
+*/
 int q4(char *strTexto, char *strBusca, int posicoes[30])
 {
-    int qtdOcorrencias = -1;
+    int qtdOcorrencias = 0;
+    int contador = 0;
+
+    for(int i=0; strTexto[i + strlen(strBusca) - 1] != '\0'; i++)
+    {
+        int diferentes = 0;
+        int i2;
+        for(int j = 0, i2 = i; strBusca[j] != '\0'; j++, i2++)
+        {
+            if(strBusca[j] != strTexto[i2])
+                diferentes++;
+        }
+        if(diferentes == 0)
+        {
+            qtdOcorrencias++;
+            posicoes[contador] = i+1;
+            posicoes[contador + 1] = i + strlen(strBusca);
+            contador += 2;
+            i+=strlen(strBusca) - 1;
+        }
+    }
 
     return qtdOcorrencias;
 }
- */
+ 
 
 /*
  Q5 = inverte número
@@ -242,8 +263,8 @@ int q4(char *strTexto, char *strBusca, int posicoes[30])
 */
  int q5(int num)
 {
-    inverterInteiro(num);
-
+    num = inverterInteiro(num);
+    
     return num;
 }
 
