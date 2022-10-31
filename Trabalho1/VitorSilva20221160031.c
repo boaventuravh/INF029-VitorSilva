@@ -168,6 +168,63 @@ int q1(char data[])
         
       
         //calcule a distancia entre as datas
+                //anos
+        dma.qtdAnos = dataQuebrFinal.iAno - dataQuebrInicial.iAno;
+        
+        if (dataQuebrFinal.iMes < dataQuebrInicial.iMes || (dataQuebrFinal.iMes == dataQuebrInicial.iMes && dataQuebrFinal.iDia < dataQuebrInicial.iDia)){
+            dma.qtdAnos--;
+        }
+        
+        //meses
+        if(dataQuebrFinal.iMes < dataQuebrInicial.iMes){
+            dma.qtdMeses = 12 - dataQuebrFinal.iMes;            
+        }
+
+        else{
+            dma.qtdMeses = dataQuebrFinal.iMes - dataQuebrInicial.iMes;
+        }
+
+        //dias
+        //meses com 30 dias
+        if(dataQuebrFinal.iMes == 4 || dataQuebrFinal.iMes == 6 || dataQuebrFinal.iMes == 9 || dataQuebrFinal.iMes == 11){
+            if(dataQuebrFinal.iDia == 30 || dataQuebrFinal.iDia == dataQuebrInicial.iDia){
+                dma.qtdDias = 0;
+            }
+            else{
+                if(dataQuebrFinal.iDia > dataQuebrInicial.iDia)
+                    dma.qtdDias = dataQuebrFinal.iDia - dataQuebrInicial.iDia;
+                else
+                    dma.qtdDias = dataQuebrFinal.iDia;
+            }
+        }
+        //meses com 31 dias
+        else if(dataQuebrFinal.iMes == 1 || dataQuebrFinal.iMes == 3 || dataQuebrFinal.iMes == 5 || dataQuebrFinal.iMes == 7 || dataQuebrFinal.iMes == 8 || dataQuebrFinal.iMes == 10 || dataQuebrFinal.iMes == 12){
+            
+            if(dataQuebrFinal.iDia == 31 || dataQuebrFinal.iDia == dataQuebrInicial.iDia){
+                dma.qtdDias = 0;
+            }
+            else{
+                if(dataQuebrFinal.iDia > dataQuebrInicial.iDia)
+                    dma.qtdDias = dataQuebrFinal.iDia - dataQuebrInicial.iDia;
+                else
+                    dma.qtdDias = dataQuebrFinal.iDia;
+            }
+        }
+        // fevereiro(28 ou 29 dias)
+        else{
+            if((verificarBissexto(dataQuebrFinal.iAno) == 1 && dataQuebrFinal.iDia == 29) || dataQuebrFinal.iDia == dataQuebrInicial.iDia){
+                dma.qtdDias = 0;
+            }
+            else if((verificarBissexto(dataQuebrFinal.iAno) == 0 && dataQuebrFinal.iDia == 28) || dataQuebrFinal.iDia == dataQuebrInicial.iDia){
+                dma.qtdDias = 0;
+            }
+            else{
+                if(dataQuebrFinal.iDia > dataQuebrInicial.iDia)
+                    dma.qtdDias = dataQuebrFinal.iDia - dataQuebrInicial.iDia;
+                else
+                    dma.qtdDias = dataQuebrFinal.iDia;
+            }
+        }
         
 
 
@@ -195,13 +252,15 @@ int q1(char data[])
     int qtdOcorrencias = 0;
     switch(isCaseSensitive){
         case 1:
-            for(int i = 0; texto[i] != '\0';i++){
+            for(int i = 0; texto[i] != '\0';i++)
+            {
                 if (texto[i] == c)
                     qtdOcorrencias++;
             }
             break;
         default:
-            for(int i = 0; texto[i] != '\0';i++){
+            for(int i = 0; texto[i] != '\0';i++)
+            {
                 if (texto[i] == c || texto[i]+32 == c || texto[i] - 32 == c)
                     qtdOcorrencias++;
             }
@@ -277,10 +336,86 @@ int q4(char *strTexto, char *strBusca, int posicoes[30])
     Um número base (numerobase) e um número de busca (numerobusca).
  @saida
     Quantidade de vezes que número de busca ocorre em número base
- 
+ */
 int q6(int numerobase, int numerobusca)
 {
-    int qtdOcorrencias;
+    int qtdOcorrencias = 0;
+    int numeroDecomposto[50];
+    int numeroDecompostoMaior[50];
+    int numeroDecompostoMenor[50];
+    int contador = 0;
+    int divisor;
+    int quociente, quocienteMaior, quocienteMenor;
+    
+    // abaixo, identificamos a quantidade de dígitos do numerobusca
+    quociente = numerobusca;
+    while(quociente > 0)
+    {
+        quociente /= 10;
+        contador++;
+    }
+    
+    divisor = potenciacao(10, contador);
+    contador = 0;
+    
+    // abaixo, subdividimos o numerobase em numeros com a mesma quantidade
+    // de dígitos do numerobusca
+    quociente = numerobase;
+    quocienteMaior = quociente*10;
+    quocienteMenor = quociente/10;
+    
+    
+    while(quocienteMaior >0)
+    {
+        numeroDecompostoMaior[contador] = quocienteMaior % divisor;
+        quocienteMaior /= divisor;
+        contador++;
+    }
+    contador = 0;
+    
+    while(quocienteMenor >0)
+    {
+        numeroDecompostoMenor[contador] = quocienteMenor % divisor;
+        quocienteMenor /= divisor;
+        contador++;
+    }
+    contador = 0;
+    
+    while(quociente > 0)
+    {
+        numeroDecomposto[contador] = quociente % divisor;
+        quociente /= divisor;
+        contador++;
+    }
+    
+    // e finalmente buscamos a quantidade de ocorrencias
+    for(int i=0 ; i<contador; i++)
+    {
+        if(numerobusca == numeroDecomposto[i])
+            qtdOcorrencias++;
+    }
+    
+    if (qtdOcorrencias == 0)
+    {
+        contador++;
+        for(int i=0 ; i<contador; i++)
+        {
+            if(numerobusca == numeroDecompostoMaior[i])
+                qtdOcorrencias++;
+        }
+        
+        if (qtdOcorrencias == 0)
+        {
+            contador -= 2;
+            for(int i=0 ; i<contador; i++)
+            {
+                if(numerobusca == numeroDecompostoMenor[i])
+                qtdOcorrencias++;
+            }
+            
+        }
+    }
+    
+        
     return qtdOcorrencias;
 }
-*/
