@@ -1,0 +1,6 @@
+https://replit.com/@renatoln/INF029-1?v=1#Trabalho2/EstruturaVetores.c
+
+Necessário: 
+malloc (comando)
+alloc (comando)
+Vetores e Ponteiros
